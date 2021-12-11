@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+
+		<link rel="stylesheet" href="../style.css">
+		<link rel="shortcut icon" href="../favicon.png">
+		<title>SimpleData | Documentation</title>
+	</head>
+	<body>
+		<h1>Documentation</h1><br><br>
+
+		<ul style="padding-left: 50px;">
+			<h2>Contents</h2>
+			<li><a href="#syntax">Syntax</a></li>
+			<li><a href="#api">API</a></li>
+
+			<ul>
+				<li class="api_li"><a href="#api_cpp">C++</a></li>
+				<li class="api_li"><a href="#api_py">Python</a></li>
+			</ul>
+
+			<li><a href="#guidelines">Guidelines</a></li>
+		</ul><br><br><br>
+
+		<main>
+			<section id="syntax">
+				<h2>Syntax</h2>
+				<p>
+					SimpleData syntax is quite simple.<br>
+					A hashtag appends a comment, although comments after values is not allowed.<br><br>
+
+					Identifiers must be unique and are used as the variable name, seperated by a colon.<br>
+					The value can either be a string (represented by a double quote on each end), an integer, a floating point integer, a boolean (true/false), a single<br>character (represented by a single quote on each end), or simply null (either uppercase or lowercase).<br><br>
+
+					Below is an example of the above statements.<br><br>
+
+					<img src="imgs/img_1.png"/><br><br>
+
+					Another thing worth mentioning is that identifiers cannot have spaces between them. This will be explained in the <a href="#guidelines">guidelines section</a>.<br>
+					Also, there are some reserved identifiers, namely "boolean", "bool", "float", "int", "integer", "string", "char", "null", and "NULL".<br>
+					This will also be explained in the guidelines section linked above.
+				</p>
+			</section>
+
+			<br><br>
+			<section id="api">
+				<h2>API</h2>
+				<p>
+					Currently there are two versions of the API: one written in <a href="#api_py">Python3</a> and another written in <a href="#cpp_api">C++17</a>.<br>
+					As time progresses, I hope that I will manage to support more languages, but currently this is what we have.<br><br>
+
+					Both APIs do the same things and have mostly the same functions, however there are some differences to be noted.<br><br>
+
+					<section id="api_cpp">
+						<h3 style="font-family: 'Norwester';">C++</h3>
+						<p>
+							The C++ SimpleData API is written using C++17.<br>
+							The API revolves around a class, which can either be used as an object or as static functions.<br>
+							The main functions presented to the programmer are update() and fetch().<br><br>
+
+							The update() function updates an identifier's value, and the fetch() function fetches an identifier's value.<br>
+							update() takes three arguments: the identifier to find, the value to replace that identifier's value with, and a type.<br>
+							fetch() also takes three arguemnts: the identifier to find, where to store the identifier's value, and a type.<br><br>
+
+							fetch() and update()'s last arguments governs how the resulting value is transformed, if at all.<br>
+							Templates are used for both functions, which decides each function's second argument.<br><br>
+
+							The class talked about earlier can be instantiated like so:<br><br>
+							<img src="imgs/img_2.png"/><br><br>
+
+							The constructor's only argument is the name of the file to work with.<br>
+							It is optional, and the open() function can be used instead.<br><br>
+
+							<img src="imgs/img_3.png"/><br><br>
+
+							Thankfully, you are not stuck with working with the same file for the entirety of that object's existence.<br>
+							open() can be used whenever needed to change the working file of an object.<br><br>
+
+							Please note that update() and fetch() will lock up whenever an invalid file is opened.<br><br>
+
+							update() and fetch() both return integers. Those integers mean stuff, and the meanings can be checked using either<br>
+							errstr() or errfind().<br>
+							errstr() takes no arguments and simply returns the description of the last returned integer of that object.<br>
+							errfind() takes an integer and returns it's description. The function was designed to be used by update() and fetch()'s non-OOP counterparts.<br><br>
+							Below is an example of the two functions being used:<br><br>
+							<img src="imgs/img_4.png"/><br>
+							<img src="imgs/img_5.png"/><br><br>
+
+							The non-OOP versions of update() and fetch() are extremely similar to the OOP versions apart from two points:<br>
+							<ol>
+								<li>The last parameter is the file to work with (with one exception)</li>
+								<li>errfind() is used to find error descriptions instead of errstr()</li>
+							</ol><br>
+
+							In the non-OOP update(), the first point is true. However, with fetch() the "type" parameter is just before it.<br>
+							There is also a version() function which simply returns the current version of the API.
+						</p>
+					</section>
+
+					<br><br>
+					<section id="api_py">
+						<h3 style="font-family: 'Norwester';">Python</h3>
+						<p>
+							The Python API is written in Python3 and shares most of the same concepts and functions from the original C++ API apart from a few minor things.<br>
+
+							First of all, since Python is a statically-typed language it can't have template arguments. This gives the "type" argument a better reason to be used as it still defines what is returned from the fetch() function.<br><br>
+
+							Also, just for more convenience, update() also requires a "type" argument to specify the type of the new value.<br><br>
+
+							errstr() and errfind() still exist and work the same way, however the static functions are located outside of the simpledata class so that Python<br>
+							does not mix them up with the non-static functions.<br>
+							Below is an example of the new static fetch() function in Python:<br><br>
+
+							<img src="imgs/img_6.png"/><br><br>
+
+							As you can see, all of the static functions are now appended with "simpledata_".
+						</p>
+					</section><br><br>
+
+					It is recommended to read both APIs source code to get a full understanding of the functionality of each.
+			</section><br><br>
+
+			<section id="guidelines">
+				<h2>Guidelines</h2>
+				<p>
+					This section is the explanation section. I will cover how I designed everything to work and be used and explain my reasons for things.<br><br>
+
+					I designed the SimpleData variables to be an echo of programming language variables.<br>
+					Then that would allow me to make a variable in my .simpdat file and another local variable in my program with the same name.<br>
+					Then I would presumably fetch that variable from the .simpdat file and put it's value into my program's variable.<br><br>
+
+					To me, that is quite sensible. Because then I know that if I have a variable that has a spot in a SimpleData file, I can just fetch the required data instead of worrying whether I have the right data or not since both go by the same name.<br><br>
+
+					This is also the reason for the restricted identifier names. In C++ at least, "bool", "float", "char", "int", and "NULL" can't be used as variable names as they are used for other things.<br>
+					Language-specific restrictions might come along someday, but that's a project for later.<br><br>
+
+					The static functions exist simply for convenience. The logic is that if someone wants to access only one or two variables in a file, why should they have to instantiate a class only to delete it a few moments later?<br><br>
+
+					Another thing you might find odd is the existence of the "type" parameter for fetch() in the C++ API.<br>
+					It is only used so that constexpr does not screw up the conversions and spit out something stupid.<br><br>
+
+					Another thing worth mentioning is that I designed SimpleData files to be written by humans and then changed by computer programs.<br>If I had designed it for computers, I wouldn't have bothered with adding comments.
+				</p>
+			</section>
+
+			<br>
+			<footer>
+				<p>
+					Copyright &copy; Darius Leong
+				</p>
+			</footer>
+</html>
