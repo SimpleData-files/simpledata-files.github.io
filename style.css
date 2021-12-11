@@ -1,0 +1,54 @@
+@font-face {
+    font-family: 'Norwester';
+    src: url("fonts/norwester/norwester.otf");
+}
+
+@font-face {
+    font-family: 'Oxygen';
+    src: url("fonts/Oxygen/Oxygen-Regular.ttf");
+}
+
+@font-face {
+    font-family: 'FooterFont';
+    src: url("fonts/Oxygen/Oxygen-Light.ttf")
+}
+
+html {
+    background: linear-gradient(90deg, #139ba1, #0ec9d1);
+}
+
+* {
+    font-family: 'Oxygen';
+    color: black;
+}
+
+h1, h2 {
+    font-family: 'Norwester';
+}
+
+h1 {
+    font-size: 50px;
+    text-align: center;
+}
+
+ul li {
+    list-style-type: "- ";
+}
+
+.api_li {
+    list-style-type: decimal;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+section {
+    padding-left: 50px;
+}
+
+footer {
+    font-family: 'FooterFont';
+    text-align: center;
+    font-size: 12px;
+}
