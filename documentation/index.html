@@ -8,7 +8,11 @@
 		<title>SimpleData | Documentation</title>
 	</head>
 	<body>
-		<h1>Documentation</h1><br><br>
+		<h1>Documentation</h1>
+
+		<nav style="text-align: center;">
+			<a href="../index.html">home</a> | <a href="https://github.com/SimpleData-files" target="_blank">github</a>
+		</nav>
 
 		<ul style="padding-left: 50px;">
 			<h2>Contents</h2>
@@ -133,7 +137,6 @@
 					To me, that is quite sensible. Because then I know that if I have a variable that has a spot in a SimpleData file, I can just fetch the required data instead of worrying whether I have the right data or not since both go by the same name.<br><br>
 
 					This is also the reason for the restricted identifier names. In C++ at least, "bool", "float", "char", "int", and "NULL" can't be used as variable names as they are used for other things.<br>
-					Language-specific restrictions might come along someday, but that's a project for later.<br><br>
 
 					The static functions exist simply for convenience. The logic is that if someone wants to access only one or two variables in a file, why should they have to instantiate a class only to delete it a few moments later?<br><br>
 
