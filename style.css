@@ -14,7 +14,7 @@
 }
 
 html {
-    background: linear-gradient(90deg, #139ba1, #0ec9d1);
+    background: #0ec9d1
 }
 
 * {
@@ -35,7 +35,11 @@ ul li {
     list-style-type: "- ";
 }
 
-.api_li {
+#list li {
+    list-style-type: circle;
+}
+
+#api_li li {
     list-style-type: decimal;
 }
 
